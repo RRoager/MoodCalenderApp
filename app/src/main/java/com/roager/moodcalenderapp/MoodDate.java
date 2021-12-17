@@ -1,9 +1,12 @@
 package com.roager.moodcalenderapp;
 
+import android.graphics.Bitmap;
+
 public class MoodDate {
     private String date;
     private String text;
     private int mood;
+    private Bitmap bitmap;
 
     public MoodDate(String date, String text, int mood) {
         this.date = date;
@@ -33,5 +36,13 @@ public class MoodDate {
 
     public void setMood(int mood) {
         this.mood = mood;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 }

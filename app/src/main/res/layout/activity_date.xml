@@ -19,7 +19,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/logoView1" />
 
     <TextView
         android:id="@+id/textView"
@@ -49,10 +49,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/logoView2" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/logoView1"
         android:layout_width="320dp"
         android:layout_height="20dp"
         android:layout_marginTop="50dp"
@@ -62,7 +62,7 @@
         app:srcCompat="@drawable/yourmoodonthisday" />
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/logoView2"
         android:layout_width="74dp"
         android:layout_height="16dp"
         android:layout_marginTop="16dp"
@@ -71,5 +71,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/selectedDateView"
         app:srcCompat="@drawable/was" />
+
+    <ImageView
+        android:id="@+id/moodImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

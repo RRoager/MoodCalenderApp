@@ -1,5 +1,8 @@
 package com.roager.moodcalenderapp;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
 import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -10,6 +13,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +24,7 @@ import java.util.Objects;
 public class Repository {
     private static FirebaseFirestore db;
     private static DocumentReference ref;
+    private static FirebaseStorage storage = FirebaseStorage.getInstance();
     private static String MOODDATES = "mood_dates";
     private static List<MoodDate> moodDates = new ArrayList<>();
     private static List<Integer> moods = new ArrayList<>();
@@ -90,6 +96,10 @@ public class Repository {
         db.collection(MOODDATES).document(currentMoodDate.getDate()).delete();
     }
 
+    public static MoodDate getCurrentMoodDate() {
+        return currentMoodDate;
+    }
+
     public static void setCurrentMoodDate(String date) {
         Repository.currentMoodDate = new MoodDate(date, "", 0);
 
@@ -101,7 +111,20 @@ public class Repository {
         }
     }
 
-    // TODO Find dejlen her
+    // TODO fix visning af billedet
+    public static void downloadBitmapForCurrentMoodDate() {
+        String mood = currentMoodDate.getMood() + ".jpeg";
+        StorageReference ref = storage.getReference(mood);
+        int max = 1024 * 1024;
+        ref.getBytes(max).addOnSuccessListener(bytes -> {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            currentMoodDate.setBitmap(bitmap);
+        }).addOnFailureListener(exception -> {
+            System.out.println("No bitmap in DB for this MoodDate");
+        });
+    }
+
+    // TODO Find ud af hvorfor den ikke går ind i OnCompleteListeneren
     public static void getMoodData() {
         System.out.println("HALLO?");
         db.collection(MOODDATES)
@@ -122,9 +145,5 @@ public class Repository {
                         }
                     }
                 });
-    }
-
-    public static MoodDate getCurrentMoodDate() {
-        return currentMoodDate;
     }
 }
