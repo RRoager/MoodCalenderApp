@@ -84,7 +84,7 @@ public class Repository {
         ref = db.collection(MOODDATES).document(date);
 
         // Opdatere fields ud fra den nye data indtastet i DateActivity og tjekker om det lykkedes
-        ref.update("text", text, "mood", mood).addOnCompleteListener(obj -> {
+        ref.update("text", text, "mood", mood, "bitmap", mood + ".jpeg").addOnCompleteListener(obj -> {
             System.out.println("MoodDate updateded");
         }).addOnFailureListener(exception -> {
             System.out.println("Failed to update MoodDate because of exception: "  + exception);
@@ -111,14 +111,19 @@ public class Repository {
         }
     }
 
-    // TODO fix visning af billedet
-    public static void downloadBitmapForCurrentMoodDate() {
-        String mood = currentMoodDate.getMood() + ".jpeg";
-        StorageReference ref = storage.getReference(mood);
-        int max = 1024 * 1024;
-        ref.getBytes(max).addOnSuccessListener(bytes -> {
+    public static void downloadBitmapForCurrentMoodDate(Updatable caller) {
+        // Laver en String der matcher billedets navn og sætter StorageRef til at være denne
+        String moodImage = currentMoodDate.getMood() + ".jpeg";
+        StorageReference ref = storage.getReference(moodImage);
+
+        // Sætter max opløsningen
+        int maxRes = 256 * 256;
+
+        // Henter billedet ud fra reffen og omdanner det til et bitmap samt sætter bitmappet på currentMoodDate
+        ref.getBytes(maxRes).addOnSuccessListener(bytes -> {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             currentMoodDate.setBitmap(bitmap);
+            caller.update(true);
         }).addOnFailureListener(exception -> {
             System.out.println("No bitmap in DB for this MoodDate");
         });

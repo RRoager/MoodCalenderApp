@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DateActivity extends AppCompatActivity {
+public class DateActivity extends AppCompatActivity implements Updatable {
 
     private TextView selectedDateView;
     private TextView textView;
@@ -23,7 +23,7 @@ public class DateActivity extends AppCompatActivity {
         textView = findViewById(R.id.textView);
         moodView = findViewById(R.id.moodView);
         moodImageView = findViewById(R.id.moodImageView);
-        Repository.downloadBitmapForCurrentMoodDate();
+        Repository.downloadBitmapForCurrentMoodDate(this);
 
         // Initialiserer et string array med de forskellige moods
         final String[] moods = {"Unfortunately not added", "Great", "Good", "Average", "Bad", "Terrible"};
@@ -33,12 +33,16 @@ public class DateActivity extends AppCompatActivity {
         // Sætter textViews visningsdata
         textView.setText(Repository.getCurrentMoodDate().getText());
         moodView.setText(moods[Repository.getCurrentMoodDate().getMood()]);
-        moodImageView.setImageBitmap(Repository.getCurrentMoodDate().getBitmap());
 
         // Tjekker at intentet indeholder noget og sætter derefter datofeltet
         if (intent != null) {
             String date = intent.getStringExtra("date");
             selectedDateView.setText(date);
         }
+    }
+
+    @Override
+    public void update(Object o) {
+        moodImageView.setImageBitmap(Repository.getCurrentMoodDate().getBitmap());
     }
 }
