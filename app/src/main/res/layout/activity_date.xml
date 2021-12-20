@@ -11,7 +11,7 @@
         android:id="@+id/logoView1"
         android:layout_width="320dp"
         android:layout_height="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -32,13 +32,13 @@
         android:id="@+id/moodImageView"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="130dp"
         android:adjustViewBounds="false"
         android:alpha="0.2"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moodView"
+        app:layout_constraintTop_toBottomOf="@+id/moodTextView"
         tools:srcCompat="@drawable/happy" />
 
     <TextView
@@ -48,7 +48,7 @@
         android:layout_marginTop="16dp"
         android:text="Selected Date"
         android:textColor="#ff6e40"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -56,13 +56,13 @@
         app:layout_constraintTop_toBottomOf="@+id/logoView1" />
 
     <TextView
-        android:id="@+id/moodView"
+        android:id="@+id/moodTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Mood"
         android:textColor="#ff6e40"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -72,7 +72,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="325dp"
-        android:layout_height="440dp"
+        android:layout_height="455dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/rounded_corners"
         android:fillViewport="true"
@@ -81,10 +81,10 @@
         android:scrollbars="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moodView">
+        app:layout_constraintTop_toBottomOf="@+id/moodTextView">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/moodContentView"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="start|top"

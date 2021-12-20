@@ -11,8 +11,8 @@ import android.widget.TextView;
 public class DateActivity extends AppCompatActivity implements Updatable {
 
     private TextView selectedDateView;
-    private TextView textView;
-    private TextView moodView;
+    private TextView moodTextView;
+    private TextView moodContentView;
     private ImageView moodImageView;
 
     @Override
@@ -21,8 +21,8 @@ public class DateActivity extends AppCompatActivity implements Updatable {
         setContentView(R.layout.activity_date);
 
         selectedDateView = findViewById(R.id.selectedDateView);
-        textView = findViewById(R.id.textView);
-        moodView = findViewById(R.id.moodView);
+        moodTextView = findViewById(R.id.moodTextView);
+        moodContentView = findViewById(R.id.moodContentView);
         moodImageView = findViewById(R.id.moodImageView);
         Repository.downloadBitmapForCurrentMoodDate(this);
 
@@ -32,8 +32,8 @@ public class DateActivity extends AppCompatActivity implements Updatable {
         Intent intent = getIntent();
 
         // Sætter textViews visningsdata
-        textView.setText(Repository.getCurrentMoodDate().getText());
-        moodView.setText(moods[Repository.getCurrentMoodDate().getMood()]);
+        moodTextView.setText(moods[Repository.getCurrentMoodDate().getMood()]);
+        moodContentView.setText(Repository.getCurrentMoodDate().getText());
 
         // Tjekker at intentet indeholder noget og sætter derefter datofeltet
         if (intent != null) {
