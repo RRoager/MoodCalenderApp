@@ -9,4 +9,8 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="your_mood_statistics">Your Mood Statistics</string>
+    <string name="your_mood_calender">Your mood Calender</string>
+    <string name="set_today_s_mood">Set Today\'s Mood</string>
+    <string name="text_logo">Text Logo</string>
 </resources>

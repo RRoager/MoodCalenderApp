@@ -7,50 +7,6 @@
     android:background="#F5F0E1"
     tools:context=".DateActivity">
 
-    <TextView
-        android:id="@+id/selectedDateView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Selected Date"
-        android:textColor="#ff6e40"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoView1" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="325dp"
-        android:layout_height="328dp"
-        android:layout_marginTop="28dp"
-        android:background="@drawable/rounded_corners"
-        android:gravity="start|top"
-        android:padding="15dp"
-        android:text="No mood data for this date. Please choose another."
-        android:textColor="#1e3d59"
-        android:textColorHint="#BA1E3D59"
-        android:textSize="18dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/moodView" />
-
-    <TextView
-        android:id="@+id/moodView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Mood"
-        android:textColor="#ff6e40"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoView2" />
-
     <ImageView
         android:id="@+id/logoView1"
         android:layout_width="320dp"
@@ -74,13 +30,76 @@
 
     <ImageView
         android:id="@+id/moodImageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="120dp"
+        android:adjustViewBounds="false"
+        android:alpha="0.2"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moodView"
+        tools:srcCompat="@drawable/happy" />
+
+    <TextView
+        android:id="@+id/selectedDateView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:text="Selected Date"
+        android:textColor="#ff6e40"
+        android:textSize="25dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/logoView1" />
+
+    <TextView
+        android:id="@+id/moodView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Mood"
+        android:textColor="#ff6e40"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoView2" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="325dp"
+        android:layout_height="440dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/rounded_corners"
+        android:fillViewport="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moodView">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start|top"
+            android:paddingLeft="5dp"
+            android:paddingTop="15dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="15dp"
+            android:scrollbars="vertical"
+            android:text="No mood data for this date. Please choose another."
+            android:textColor="#1e3d59"
+            android:textColorHint="#BA1E3D59"
+            android:textSize="18sp" />
+
+    </ScrollView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
