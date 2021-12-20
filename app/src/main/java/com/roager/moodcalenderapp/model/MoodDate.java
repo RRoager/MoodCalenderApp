@@ -1,4 +1,4 @@
-package com.roager.moodcalenderapp;
+package com.roager.moodcalenderapp.model;
 
 import android.graphics.Bitmap;
 

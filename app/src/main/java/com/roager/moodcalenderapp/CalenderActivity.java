@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.CalendarView;
 
+import com.roager.moodcalenderapp.repository.Repository;
+
 public class CalenderActivity extends AppCompatActivity {
 
     private CalendarView calendarView;

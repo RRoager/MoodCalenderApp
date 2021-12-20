@@ -1,4 +1,4 @@
-package com.roager.moodcalenderapp;
+package com.roager.moodcalenderapp.repository;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -15,10 +16,13 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.roager.moodcalenderapp.model.MoodDate;
+import com.roager.moodcalenderapp.Updatable;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 public class Repository {
@@ -65,6 +69,7 @@ public class Repository {
         ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                // Hvis tasken er succesfuld laves der et DocumentSnapshot af resultatet
                 if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
 
@@ -129,26 +134,28 @@ public class Repository {
         });
     }
 
-    // TODO Find ud af hvorfor den ikke går ind i OnCompleteListeneren
+    // TODO Find ud af om der overhovedet er brug for denne eller om moodDates listen kan bruges
     public static void getMoodData() {
-        System.out.println("HALLO?");
-        db.collection(MOODDATES)
-                .whereEqualTo("date", true)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                System.out.println("HVAD ER DET HER? " + document.getId() + " => " + document.getData());
-                                //int mood = Objects.requireNonNull(document.getLong("mood")).intValue();;
-                                //moods.add(mood);
-                                //System.out.println("Dette er moods: " + moods);
-                            }
-                        } else {
-                            System.out.println("Failed to get mood data because of exception: " + task.getException());
-                        }
+        CollectionReference colRef = db.collection(MOODDATES);
+        colRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        int mood = document.getLong("mood").intValue();
+                        moods.add(mood);
+                        System.out.println("Dette er moods: " + moods);
                     }
-                });
+                } else {
+                    System.out.println("Failed to get mood data because of exception: " + task.getException());
+                }
+            }
+        });
+
+        // TODO Find ud af hvordan man får alle moods fra et måned
+        List<Integer> moodList = moodDates.stream().map(MoodDate::getMood).collect(Collectors.toList());
+        System.out.println("HER KOMMER LISTEN");
+        moodList.forEach(System.out::print);
+        System.out.println("");
     }
 }
