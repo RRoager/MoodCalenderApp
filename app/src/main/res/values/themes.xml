@@ -4,7 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">#ff6e40</item>
         <item name="colorPrimaryVariant">#1e3d59</item>
-        <item name="colorOnPrimary">#f5f0e1</item>
+        <item name="colorOnPrimary">#1e3d59</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">#ff6e40</item>
         <item name="colorSecondaryVariant">#1e3d59</item>
@@ -13,6 +13,13 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:textColorPrimary">#1e3d59</item>
+    </style>
+    <style name="CustomDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+    </style>
+
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
     </style>
     <style name="Theme.MoodCalenderApp.NoActionBar">
         <item name="windowActionBar">false</item>

@@ -35,9 +35,6 @@ public class MainActivity extends AppCompatActivity {
         setMoodBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Formattere datoen ud fra mønsteret og maskinens location
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-
                 // Finder dags dato og formattere den korrekt
                 LocalDate localDate = now();
                 String date = localDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));

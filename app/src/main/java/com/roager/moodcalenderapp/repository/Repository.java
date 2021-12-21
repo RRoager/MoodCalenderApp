@@ -20,7 +20,10 @@ import com.roager.moodcalenderapp.model.MoodDate;
 import com.roager.moodcalenderapp.Updatable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -134,28 +137,36 @@ public class Repository {
         });
     }
 
-    // TODO Find ud af om der overhovedet er brug for denne eller om moodDates listen kan bruges
-    public static void getMoodData() {
-        CollectionReference colRef = db.collection(MOODDATES);
-        colRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        int mood = document.getLong("mood").intValue();
-                        moods.add(mood);
-                        System.out.println("Dette er moods: " + moods);
-                    }
-                } else {
-                    System.out.println("Failed to get mood data because of exception: " + task.getException());
-                }
-            }
-        });
-
-        // TODO Find ud af hvordan man får alle moods fra et måned
-        List<Integer> moodList = moodDates.stream().map(MoodDate::getMood).collect(Collectors.toList());
-        System.out.println("HER KOMMER LISTEN");
-        moodList.forEach(System.out::print);
-        System.out.println("");
+    public static List<MoodDate> getMoodDatesList() {
+        return moodDates;
     }
+
+    /*
+    public static void getMoodStatisticsByMonthAndYear(String monthAndYear) {
+
+        //List<Integer> moodList = moodDates.stream().map(MoodDate::getMood).collect(Collectors.toList());
+
+        List<Integer> moodsForMonthOfYearList = new ArrayList<>();
+
+        for (MoodDate mood: Repository.moodDates) {
+            if (mood.getDate().contains(monthAndYear)) {
+                moodsForMonthOfYearList.add(mood.getMood());
+            }
+        }
+
+        int noOfGreatDays = Collections.frequency(moodsForMonthOfYearList, 1);
+        int noOfGoodDays = Collections.frequency(moodsForMonthOfYearList, 2);
+        int noOfAverageDays = Collections.frequency(moodsForMonthOfYearList, 3);
+        int noOfBadDays = Collections.frequency(moodsForMonthOfYearList, 4);
+        int noOfTerribleDays = Collections.frequency(moodsForMonthOfYearList, 5);
+
+        System.out.println("DETTE ER MOODS FOR DEN SPECIFIKKE MÅNED: " + moodsForMonthOfYearList);
+
+        System.out.println("ANTAL GREAT DAYS: " + noOfGreatDays);
+        System.out.println("ANTAL GOOD DAYS: " + noOfGoodDays);
+        System.out.println("ANTAL AVERAGE DAYS: " + noOfAverageDays);
+        System.out.println("ANTAL BAD DAYS: " + noOfBadDays);
+        System.out.println("ANTAL TERRIBLE DAYS: " + noOfTerribleDays);
+    }
+    */
 }
