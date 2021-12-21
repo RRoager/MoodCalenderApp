@@ -137,36 +137,8 @@ public class Repository {
         });
     }
 
+    // For at kunne bruge moodDates listen i StatisticsActivity
     public static List<MoodDate> getMoodDatesList() {
         return moodDates;
     }
-
-    /*
-    public static void getMoodStatisticsByMonthAndYear(String monthAndYear) {
-
-        //List<Integer> moodList = moodDates.stream().map(MoodDate::getMood).collect(Collectors.toList());
-
-        List<Integer> moodsForMonthOfYearList = new ArrayList<>();
-
-        for (MoodDate mood: Repository.moodDates) {
-            if (mood.getDate().contains(monthAndYear)) {
-                moodsForMonthOfYearList.add(mood.getMood());
-            }
-        }
-
-        int noOfGreatDays = Collections.frequency(moodsForMonthOfYearList, 1);
-        int noOfGoodDays = Collections.frequency(moodsForMonthOfYearList, 2);
-        int noOfAverageDays = Collections.frequency(moodsForMonthOfYearList, 3);
-        int noOfBadDays = Collections.frequency(moodsForMonthOfYearList, 4);
-        int noOfTerribleDays = Collections.frequency(moodsForMonthOfYearList, 5);
-
-        System.out.println("DETTE ER MOODS FOR DEN SPECIFIKKE MÅNED: " + moodsForMonthOfYearList);
-
-        System.out.println("ANTAL GREAT DAYS: " + noOfGreatDays);
-        System.out.println("ANTAL GOOD DAYS: " + noOfGoodDays);
-        System.out.println("ANTAL AVERAGE DAYS: " + noOfAverageDays);
-        System.out.println("ANTAL BAD DAYS: " + noOfBadDays);
-        System.out.println("ANTAL TERRIBLE DAYS: " + noOfTerribleDays);
-    }
-    */
 }

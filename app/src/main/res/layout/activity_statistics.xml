@@ -28,11 +28,12 @@ tools:context=".CalenderActivity">
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="CHOOSE MONTH AND YEAR"
+        android:text="@string/choose_month_and_year"
         android:textColor="#1e3d59"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/monthYearTextView"
@@ -169,7 +170,8 @@ tools:context=".CalenderActivity">
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/greatDaysImageView"
-        app:srcCompat="@drawable/horizontalruler" />
+        app:srcCompat="@drawable/horizontalruler"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageView
         android:id="@+id/horizontalRuler2"
@@ -180,7 +182,8 @@ tools:context=".CalenderActivity">
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goodDaysImageView"
-        app:srcCompat="@drawable/horizontalruler" />
+        app:srcCompat="@drawable/horizontalruler"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageView
         android:id="@+id/horizontalRuler3"
@@ -191,7 +194,8 @@ tools:context=".CalenderActivity">
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/averageDaysImageView"
-        app:srcCompat="@drawable/horizontalruler" />
+        app:srcCompat="@drawable/horizontalruler"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageView
         android:id="@+id/horizontalRuler4"
@@ -202,5 +206,6 @@ tools:context=".CalenderActivity">
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/badDaysImageView"
-        app:srcCompat="@drawable/horizontalruler" />
+        app:srcCompat="@drawable/horizontalruler"
+        tools:ignore="ImageContrastCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

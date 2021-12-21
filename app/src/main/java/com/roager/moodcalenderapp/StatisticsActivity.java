@@ -28,7 +28,6 @@ public class StatisticsActivity extends AppCompatActivity implements DatePickerD
     private TextView averageTextView;
     private TextView badTextView;
     private TextView terribleTextView;
-    //private DatePicker datePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +42,6 @@ public class StatisticsActivity extends AppCompatActivity implements DatePickerD
         badTextView = findViewById(R.id.badTextView);
         terribleTextView = findViewById(R.id.terribleTextView);
 
-        //datePicker = findViewById(R.id.datePicker);
-        // Fjerner dagen på DatePickeren
-        //datePicker.findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
-
         monthYearBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,14 +52,17 @@ public class StatisticsActivity extends AppCompatActivity implements DatePickerD
 
     public void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this,
-                R.style.CustomDatePickerDialogTheme,
-                this,
-                Calendar.getInstance().get(Calendar.YEAR),
+                this, // Sætter activitien til at være context
+                R.style.CustomDatePickerDialogTheme, // Sætter special DatePicker style så det er en spinner
+                this, // Sætter activitien til at være listener, kan lade sig gøre fordi vi har implementeret DatePickerDialog.OnDateSetListener på klassen
+                Calendar.getInstance().get(Calendar.YEAR), // Sætter viste måned og år til at være systemets
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
         );
+        // Fjerner day-muligheden fra datepickeren
         ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
+        // Fjerner muligheden for at vælge en dato i fremtiden ved at sætte maxDate til systemet
+        datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         datePickerDialog.show();
     }
 
