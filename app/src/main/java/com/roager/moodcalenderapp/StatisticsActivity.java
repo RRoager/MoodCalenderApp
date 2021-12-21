@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
-public class StatisticsActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class StatisticsActivity extends AppCompatActivity {
 
     private Button monthYearBtn;
     private TextView monthYearTextView;
@@ -52,43 +52,57 @@ public class StatisticsActivity extends AppCompatActivity implements DatePickerD
 
     public void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-                this, // Sætter activitien til at være context
-                R.style.CustomDatePickerDialogTheme, // Sætter special DatePicker style så det er en spinner
-                this, // Sætter activitien til at være listener, kan lade sig gøre fordi vi har implementeret DatePickerDialog.OnDateSetListener på klassen
-                Calendar.getInstance().get(Calendar.YEAR), // Sætter viste måned og år til at være systemets
+                // Sætter activitien til at være context
+                this,
+
+                // Sætter special DatePicker style så det er en spinner
+                R.style.CustomDatePickerDialogTheme,
+
+                // Laver listeneren og får fat i valgte måned og år som gives med i getMoodStatisticsByMonthAndYear() kaldet
+                new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        String monthAndYear = month+1 + "-" + year;
+                        monthYearTextView.setText(monthAndYear);
+                        getMoodStatisticsByMonthAndYear(monthAndYear);
+                    }
+                },
+
+                // Sætter viste måned og år til at være systemets
+                Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
         );
+
         // Fjerner day-muligheden fra datepickeren
         ((ViewGroup) datePickerDialog.getDatePicker()).findViewById(Resources.getSystem().getIdentifier("day", "id", "android")).setVisibility(View.GONE);
+
         // Fjerner muligheden for at vælge en dato i fremtiden ved at sætte maxDate til systemet
         datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+
         datePickerDialog.show();
     }
 
-    @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        String monthAndYear = month+1 + "-" + year;
-        monthYearTextView.setText(monthAndYear);
-        getMoodStatisticsByMonthAndYear(monthAndYear);
-    }
-
     public void getMoodStatisticsByMonthAndYear(String monthAndYear) {
+        // Henter moodDates listen fra repository
         List<MoodDate> moodDates = Repository.getMoodDatesList();
+        // Laver ny liste til at indeholde månedens moods
         List<Integer> moodsForMonthOfYearList = new ArrayList<>();
 
+        // Finder alle moods ud fra det specifikke måned og år og tilføjer dem til moodsForMonthOfYearList
         for (MoodDate mood: moodDates) {
             if (mood.getDate().contains(monthAndYear)) {
                 moodsForMonthOfYearList.add(mood.getMood());
             }
         }
 
+        // Finder ud af hvor mange der er af hver type mood
         String noOfGreatDays = Collections.frequency(moodsForMonthOfYearList, 1) + "";
         String noOfGoodDays = Collections.frequency(moodsForMonthOfYearList, 2) + "";
         String noOfAverageDays = Collections.frequency(moodsForMonthOfYearList, 3) + "";
         String noOfBadDays = Collections.frequency(moodsForMonthOfYearList, 4) + "";
         String noOfTerribleDays = Collections.frequency(moodsForMonthOfYearList, 5) + "";
 
+        // Sætter texten til at være antal af de forskellige moods
         greatTextView.setText(noOfGreatDays);
         goodTextView.setText(noOfGoodDays);
         averageTextView.setText(noOfAverageDays);
