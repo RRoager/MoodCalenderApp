@@ -32,30 +32,25 @@ public class MainActivity extends AppCompatActivity {
         calenderBtn = findViewById(R.id.calenderBtn);
         statisticsBtn = findViewById(R.id.statisticsBtn);
 
-        setMoodBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Finder dags dato og formattere den korrekt
-                LocalDate localDate = now();
-                String date = localDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        setMoodBtn.setOnClickListener(v -> {
+            // Finder dags dato og formattere den korrekt
+            LocalDate localDate = now();
+            String date = localDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
-                Repository.createMoodDate(date);
-                Repository.setCurrentMoodDate(date);
-                Intent intent=new Intent(MainActivity.this, CreateMoodActivity.class);
+            Repository.createMoodDate(date);
+            // Bruger datoen til sætte currentMoodDate
+            Repository.setCurrentMoodDate(date);
+            Intent intent=new Intent(MainActivity.this, CreateMoodActivity.class);
 
-                // Smider datoen med som extra i intentet
-                intent.putExtra("date", date);
+            // Smider datoen med som extra i intentet
+            intent.putExtra("date", date);
 
-                startActivity(intent);
-            }
+            startActivity(intent);
         });
 
-        calenderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, CalenderActivity.class);
-                startActivity(intent);
-            }
+        calenderBtn.setOnClickListener(v -> {
+            Intent intent=new Intent(MainActivity.this, CalenderActivity.class);
+            startActivity(intent);
         });
 
         statisticsBtn.setOnClickListener(new View.OnClickListener() {

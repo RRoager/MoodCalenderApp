@@ -69,22 +69,19 @@ public class Repository {
         ref = db.collection(MOODDATES).document(date);
 
         // Tjekker om der allerede findes data på denne dato
-        ref.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                // Hvis tasken er succesfuld laves der et DocumentSnapshot af resultatet
-                if (task.isSuccessful()) {
-                    DocumentSnapshot documentSnapshot = task.getResult();
+        ref.get().addOnCompleteListener(task -> {
+            // Hvis tasken er succesfuld laves der et DocumentSnapshot af resultatet
+            if (task.isSuccessful()) {
+                DocumentSnapshot documentSnapshot = task.getResult();
 
-                    // Hvis der ikke er en MoodDate laves en tom ud fra datoen og gemmet i collectionen
-                    if (!documentSnapshot.exists()) {
-                        MoodDate moodDate = new MoodDate(date, "", 0);
-                        ref.set(moodDate);
-                    }
-                } else {
-                    System.out.println("Failed to get or create MoodDate because of exception: " + task.getException());
+                // Hvis der ikke er en MoodDate laves en tom ud fra datoen og gemmes i collectionen
+                if (!documentSnapshot.exists()) {
+                    MoodDate moodDate = new MoodDate(date, "", 0);
+                    ref.set(moodDate);
                 }
             }
+        }).addOnFailureListener(exception -> {
+            System.out.println("Failed to create MoodDate because of exception: " + exception);
         });
     }
 
@@ -95,12 +92,11 @@ public class Repository {
         ref.update("text", text, "mood", mood, "bitmap", mood + ".jpeg").addOnCompleteListener(obj -> {
             System.out.println("MoodDate updateded");
         }).addOnFailureListener(exception -> {
-            System.out.println("Failed to update MoodDate because of exception: "  + exception);
+            System.out.println("Failed to update MoodDate because of exception: " + exception);
         });
     }
 
     public static void deleteMoodDate() {
-        // Sletter MoodDaten i Firestore ud fra datoen
         db.collection(MOODDATES).document(currentMoodDate.getDate()).delete();
     }
 
@@ -109,9 +105,10 @@ public class Repository {
     }
 
     public static void setCurrentMoodDate(String date) {
+        // Sætter currentMoodDate til at være en tom MoodDate med datoen der er sendt med
         Repository.currentMoodDate = new MoodDate(date, "", 0);
 
-        // Finder den rigtige moodDate på moodDates listen, ud fra datoen der er sendt med
+        // Hvis der findes en MoodDate på listen med datoen og tekst sættes denne til at være currentMoodDate
         for (MoodDate moodDate : moodDates) {
             if (moodDate.getDate().equals(date) & moodDate.getText() != null) {
                 Repository.currentMoodDate = moodDate;
@@ -131,9 +128,9 @@ public class Repository {
         ref.getBytes(maxRes).addOnSuccessListener(bytes -> {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             currentMoodDate.setBitmap(bitmap);
-            caller.update(true);
+            caller.updateMoodImage(true);
         }).addOnFailureListener(exception -> {
-            System.out.println("No bitmap in DB for this MoodDate");
+            System.out.println("No bitmap in DB for this MoodDate: " + exception);
         });
     }
 

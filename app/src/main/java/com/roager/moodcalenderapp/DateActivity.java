@@ -44,7 +44,7 @@ public class DateActivity extends AppCompatActivity implements Updatable {
     }
 
     @Override
-    public void update(Object o) {
+    public void updateMoodImage(Object object) {
         // Sætter mood billedet
         moodImageView.setImageBitmap(Repository.getCurrentMoodDate().getBitmap());
     }

@@ -24,7 +24,10 @@ public class CalenderActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                // Laver en String date ud fra den dato der er trykket på kalenderen
                 String date = dayOfMonth + "-" + (month + 1) + "-" + year;
+
+                // Sætter currentMoodDate til at være denne dato
                 Repository.setCurrentMoodDate(date);
                 Intent intent = new Intent(CalenderActivity.this, DateActivity.class);
 

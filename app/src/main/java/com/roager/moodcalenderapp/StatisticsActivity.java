@@ -42,12 +42,9 @@ public class StatisticsActivity extends AppCompatActivity {
         badTextView = findViewById(R.id.badTextView);
         terribleTextView = findViewById(R.id.terribleTextView);
 
-        monthYearBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDatePickerDialog();
-            }
-        });
+        monthYearBtn.setOnClickListener(view ->
+                showDatePickerDialog()
+        );
     }
 
     public void showDatePickerDialog() {
@@ -59,12 +56,10 @@ public class StatisticsActivity extends AppCompatActivity {
                 R.style.CustomDatePickerDialogTheme,
 
                 // Laver listeneren og får fat i valgte måned og år som gives med i getMoodStatisticsByMonthAndYear() kaldet
-                new DatePickerDialog.OnDateSetListener() {
-                    public void onDateSet(DatePicker view, int year, int month, int day) {
-                        String monthAndYear = month+1 + "-" + year;
-                        monthYearTextView.setText(monthAndYear);
-                        getMoodStatisticsByMonthAndYear(monthAndYear);
-                    }
+                (view, year, month, day) -> {
+                    String monthAndYear = month+1 + "-" + year;
+                    monthYearTextView.setText(monthAndYear);
+                    getMoodStatisticsByMonthAndYear(monthAndYear);
                 },
 
                 // Sætter viste måned og år til at være systemets
