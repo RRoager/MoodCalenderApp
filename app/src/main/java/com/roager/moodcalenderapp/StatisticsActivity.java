@@ -91,11 +91,11 @@ public class StatisticsActivity extends AppCompatActivity {
         }
 
         // Finder ud af hvor mange der er af hver type mood
-        String noOfGreatDays = Collections.frequency(moodsForMonthOfYearList, 1) + "";
-        String noOfGoodDays = Collections.frequency(moodsForMonthOfYearList, 2) + "";
-        String noOfAverageDays = Collections.frequency(moodsForMonthOfYearList, 3) + "";
-        String noOfBadDays = Collections.frequency(moodsForMonthOfYearList, 4) + "";
-        String noOfTerribleDays = Collections.frequency(moodsForMonthOfYearList, 5) + "";
+        String noOfGreatDays = String.valueOf(Collections.frequency(moodsForMonthOfYearList, 1));
+        String noOfGoodDays = String.valueOf(Collections.frequency(moodsForMonthOfYearList, 2));
+        String noOfAverageDays = String.valueOf(Collections.frequency(moodsForMonthOfYearList, 3));
+        String noOfBadDays = String.valueOf(Collections.frequency(moodsForMonthOfYearList, 4));
+        String noOfTerribleDays = String.valueOf(Collections.frequency(moodsForMonthOfYearList, 5));
 
         // Sætter texten til at være antal af de forskellige moods
         greatTextView.setText(noOfGreatDays);

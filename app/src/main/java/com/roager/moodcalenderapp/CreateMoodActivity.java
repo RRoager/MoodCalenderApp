@@ -35,7 +35,7 @@ public class CreateMoodActivity extends AppCompatActivity {
         deleteBtn = findViewById(R.id.deleteBtn);
 
         // Initialiserer et string array med de forskellige moods
-        final String[] moods = {"Choose your mood","Great","Good", "Average", "Bad", "Terrible"};
+        String[] moods = {"Choose your mood","Great","Good", "Average", "Bad", "Terrible"};
 
         // Sætter min, max og moods til at blive vist på moodPickeren
         moodPicker.setMinValue(0);

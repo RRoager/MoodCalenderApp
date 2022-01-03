@@ -53,12 +53,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        statisticsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this, StatisticsActivity.class);
-                startActivity(intent);
-            }
+        statisticsBtn.setOnClickListener(v -> {
+            Intent intent=new Intent(MainActivity.this, StatisticsActivity.class);
+            startActivity(intent);
         });
     }
 }

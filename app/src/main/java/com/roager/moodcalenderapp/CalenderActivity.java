@@ -24,8 +24,21 @@ public class CalenderActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                // Sørger for at der er 0 foran enkeltcifrede måneder og dage
+                String stringDayOfMonth = "";
+                String stringMonth = "";
+                if (dayOfMonth < 10) {
+                    stringDayOfMonth = "0" + dayOfMonth;
+                } else {
+                    stringDayOfMonth = String.valueOf(dayOfMonth);
+                }
+                if (month < 10) {
+                    stringMonth = "0" + (month + 1);
+                } else {
+                    stringMonth = String.valueOf(month + 1);
+                }
                 // Laver en String date ud fra den dato der er trykket på kalenderen
-                String date = dayOfMonth + "-" + (month + 1) + "-" + year;
+                String date = stringDayOfMonth + "-" + stringMonth + "-" + year;
 
                 // Sætter currentMoodDate til at være denne dato
                 Repository.setCurrentMoodDate(date);

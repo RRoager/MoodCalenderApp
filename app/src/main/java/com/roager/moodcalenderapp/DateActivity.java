@@ -25,10 +25,11 @@ public class DateActivity extends AppCompatActivity implements Updatable {
         moodTextView = findViewById(R.id.moodTextView);
         moodContentView = findViewById(R.id.moodContentView);
         moodImageView = findViewById(R.id.moodImageView);
+        // Downloader billede fra db og sætter caller til at være denne klasse
         Repository.downloadBitmapForCurrentMoodDate(this);
 
         // Initialiserer et string array med de forskellige moods
-        final String[] moods = {"Unfortunately not added", "Great", "Good", "Average", "Bad", "Terrible"};
+        String[] moods = {"Unfortunately not added", "Great", "Good", "Average", "Bad", "Terrible"};
 
         Intent intent = getIntent();
 

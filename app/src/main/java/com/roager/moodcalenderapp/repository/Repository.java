@@ -27,19 +27,18 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-
 public class Repository {
     private static FirebaseFirestore db;
     private static DocumentReference ref;
-    private static FirebaseStorage storage = FirebaseStorage.getInstance();
+    private static FirebaseStorage storage;
     private static String MOODDATES = "mood_dates";
     private static List<MoodDate> moodDates = new ArrayList<>();
-    private static List<Integer> moods = new ArrayList<>();
     private static MoodDate currentMoodDate;
 
     public static void init() {
         // Initialiserer Firestore databasen
         db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
         getMoodDates();
     }
 
@@ -108,8 +107,11 @@ public class Repository {
         // Sætter currentMoodDate til at være en tom MoodDate med datoen der er sendt med
         Repository.currentMoodDate = new MoodDate(date, "", 0);
 
+        System.out.println("Dato: " + date);
+
         // Hvis der findes en MoodDate på listen med datoen og tekst sættes denne til at være currentMoodDate
         for (MoodDate moodDate : moodDates) {
+            System.out.println(moodDate.getDate().equals(date) & moodDate.getText() != null);
             if (moodDate.getDate().equals(date) & moodDate.getText() != null) {
                 Repository.currentMoodDate = moodDate;
             }
@@ -119,6 +121,7 @@ public class Repository {
     public static void downloadBitmapForCurrentMoodDate(Updatable caller) {
         // Laver en String der matcher billedets navn og sætter StorageRef til at være denne
         String moodImage = currentMoodDate.getMood() + ".jpeg";
+        System.out.println("MoodImage fra 2022: " + moodImage);
         StorageReference ref = storage.getReference(moodImage);
 
         // Sætter max opløsningen
@@ -128,6 +131,7 @@ public class Repository {
         ref.getBytes(maxRes).addOnSuccessListener(bytes -> {
             Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             currentMoodDate.setBitmap(bitmap);
+            // Caller = DateActivty kalder updateMoodImage, så billedet kan blive sat på Viewet
             caller.updateMoodImage(true);
         }).addOnFailureListener(exception -> {
             System.out.println("No bitmap in DB for this MoodDate: " + exception);
