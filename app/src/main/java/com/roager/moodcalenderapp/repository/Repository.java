@@ -3,16 +3,10 @@ package com.roager.moodcalenderapp.repository;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -20,12 +14,9 @@ import com.roager.moodcalenderapp.model.MoodDate;
 import com.roager.moodcalenderapp.Updatable;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
+
 
 public class Repository {
     private static FirebaseFirestore db;
@@ -109,9 +100,9 @@ public class Repository {
         // Sætter currentMoodDate til at være en tom MoodDate med datoen der er sendt med
         Repository.currentMoodDate = new MoodDate(date, "", 0);
 
-        // Hvis der findes en MoodDate på listen med datoen som indeholder tekst sættes denne til at være currentMoodDate
+        // Hvis der findes en MoodDate på listen med datoen og moodet er sat på denne sættes den til at være currentMoodDate i stedet
         for (MoodDate moodDate : moodDates) {
-            if (moodDate.getDate().equals(date) & moodDate.getText() != null) {
+            if (moodDate.getDate().equals(date) & moodDate.getMood() != 0) {
                 Repository.currentMoodDate = moodDate;
             }
         }
