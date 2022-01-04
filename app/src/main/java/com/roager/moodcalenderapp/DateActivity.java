@@ -21,7 +21,7 @@ public class DateActivity extends AppCompatActivity implements Updatable {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_date);
 
-        selectedDateView = findViewById(R.id.selectedDateView);
+        selectedDateView = findViewById(R.id.dateView);
         moodTextView = findViewById(R.id.moodTextView);
         moodContentView = findViewById(R.id.moodContentView);
         moodImageView = findViewById(R.id.moodImageView);
@@ -31,17 +31,20 @@ public class DateActivity extends AppCompatActivity implements Updatable {
         // Initialiserer et string array med de forskellige moods
         String[] moods = {"Unfortunately not added", "Great", "Good", "Average", "Bad", "Terrible"};
 
-        Intent intent = getIntent();
+        //Intent intent = getIntent();
 
-        // Sætter textViews visningsdata
+        // Sætter mood ud fra det index moodet har samt text og dato
         moodTextView.setText(moods[Repository.getCurrentMoodDate().getMood()]);
         moodContentView.setText(Repository.getCurrentMoodDate().getText());
+        selectedDateView.setText(Repository.getCurrentMoodDate().getDate());
 
+        /*
         // Tjekker at intentet indeholder noget og sætter derefter datofeltet
         if (intent != null) {
             String date = intent.getStringExtra("date");
             selectedDateView.setText(date);
         }
+        */
     }
 
     @Override

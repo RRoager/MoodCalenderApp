@@ -49,13 +49,13 @@ public class StatisticsActivity extends AppCompatActivity {
 
     public void showDatePickerDialog() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
-                // Sætter activitien til at være context
+                // Sætter StatisticsActivity til at være context
                 this,
 
                 // Sætter special DatePicker style så det er en spinner
                 R.style.CustomDatePickerDialogTheme,
 
-                // Laver listeneren og får fat i valgte måned og år som gives med i getMoodStatisticsByMonthAndYear() kaldet
+                // Laver listeneren og får fat i valgte måned og år som gives med i getMoodStatisticsByMonthAndYear() metode  kaldet
                 (view, year, month, day) -> {
                     String monthAndYear = month+1 + "-" + year;
                     monthYearTextView.setText(monthAndYear);
@@ -80,7 +80,7 @@ public class StatisticsActivity extends AppCompatActivity {
     public void getMoodStatisticsByMonthAndYear(String monthAndYear) {
         // Henter moodDates listen fra repository
         List<MoodDate> moodDates = Repository.getMoodDatesList();
-        // Laver ny liste til at indeholde månedens moods
+        // Laver ny tom liste til at indeholde månedens moods
         List<Integer> moodsForMonthOfYearList = new ArrayList<>();
 
         // Finder alle moods ud fra det specifikke måned og år og tilføjer dem til moodsForMonthOfYearList

@@ -20,11 +20,11 @@ public class CalenderActivity extends AppCompatActivity {
 
         calendarView = findViewById(R.id.calendarView);
 
-        // Tilføjer listener kalenderen
+        // Tilføjer listener til kalenderen
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                // Sørger for at der er 0 foran enkeltcifrede måneder og dage
+                // Sørger for at der er 0 foran enkelt cifrede måneder og dage
                 String stringDayOfMonth = "";
                 String stringMonth = "";
                 if (dayOfMonth < 10) {
@@ -45,7 +45,7 @@ public class CalenderActivity extends AppCompatActivity {
                 Intent intent = new Intent(CalenderActivity.this, DateActivity.class);
 
                 // Gemmer den valgte dato til brug i DateActivity
-                intent.putExtra("date", date);
+                //intent.putExtra("date", date);
 
                 startActivity(intent);
             }

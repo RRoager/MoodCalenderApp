@@ -3,10 +3,8 @@ package com.roager.moodcalenderapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -17,7 +15,7 @@ import com.roager.moodcalenderapp.repository.Repository;
 
 public class CreateMoodActivity extends AppCompatActivity {
 
-    private TextView selectedDateView;
+    private TextView todaysDateView;
     private EditText editTextView;
     private NumberPicker moodPicker;
     private FloatingActionButton saveBtn;
@@ -28,7 +26,7 @@ public class CreateMoodActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_mood);
 
-        selectedDateView = findViewById(R.id.selectedDateView);
+        todaysDateView = findViewById(R.id.dateView);
         editTextView = findViewById(R.id.editTextView);
         moodPicker = findViewById(R.id.moodPicker);
         saveBtn = findViewById(R.id.saveBtn);
@@ -43,23 +41,28 @@ public class CreateMoodActivity extends AppCompatActivity {
         moodPicker.setWrapSelectorWheel(true);
         moodPicker.setDisplayedValues(moods);
 
-        Intent intent = getIntent();
+        //Intent intent = getIntent();
 
         editTextView.setText(Repository.getCurrentMoodDate().getText());
         moodPicker.setValue(Repository.getCurrentMoodDate().getMood());
+        todaysDateView.setText(Repository.getCurrentMoodDate().getDate());
 
+        /*
         // Tjekker at intentet indeholder noget og sætter derefter datofeltet
         if (intent != null) {
             String date = intent.getStringExtra("date");
-            selectedDateView.setText(date);
+            todaysDateView.setText(date);
         }
+        */
 
-        // Laver onclick listener på save knappen og gemmer dataen fra felterne
+        // Laver onClickListener  på save knappen og gemmer dataen fra felterne
         saveBtn.setOnClickListener(v -> {
-            String date = selectedDateView.getText().toString();
+            String date = todaysDateView.getText().toString();
             String text = editTextView.getText().toString();
             int mood = moodPicker.getValue();
+            // Sikre at mood altid er valgt før der gemmes
             if (mood != 0) {
+                // Kalder saveMoodDate og sender den nye data med
                 Repository.saveMoodDate(date, text, mood);
                 Toast.makeText(CreateMoodActivity.this, "Today's mood has been saved.", Toast.LENGTH_LONG).show();
             } else {
@@ -67,18 +70,18 @@ public class CreateMoodActivity extends AppCompatActivity {
             }
         });
 
-        // Laver onclick listener på delete knappen
+        // Laver onClickListener  på delete knappen
         deleteBtn.setOnClickListener(v -> {
             // Laver en dialogbox
             AlertDialog.Builder builder = new AlertDialog.Builder(CreateMoodActivity.this);
             builder.setMessage("Are you sure you would like to delete?")
                     .setCancelable(true)
-                    // Hvis der trykkes "Yes" slettes MoodDaten og man bliver sendt til main
+                    // Hvis der trykkes "Yes" slettes MoodDaten og man bliver sendt til Main og der vises en Toast besked
                     .setPositiveButton("Yes", (dialog, id) -> {
                         Repository.deleteMoodDate();
                         Toast.makeText(CreateMoodActivity.this, "The mood has been deleted.", Toast.LENGTH_LONG).show();
-                        Intent intent1 =new Intent(CreateMoodActivity.this, MainActivity.class);
-                        startActivity(intent1);
+                        Intent intent =new Intent(CreateMoodActivity.this, MainActivity.class);
+                        startActivity(intent);
                     })
                     .setNegativeButton("Cancel", null).show();
         });

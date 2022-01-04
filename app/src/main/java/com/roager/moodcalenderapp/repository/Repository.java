@@ -48,7 +48,7 @@ public class Repository {
             if(error == null) {
                 // Tømmer moodDates listen
                 moodDates.clear();
-                // Henter alle dokumenter på Firestore og hvis de har en dato tilføjes de til moodDates listen
+                // Henter alle dokumenter på Firestore og hvis de har en dato tilføjes det til moodDates listen
                 for(DocumentSnapshot documentSnapshot : value.getDocuments()) {
                     if(documentSnapshot.get("date") != null) {
                         String date = documentSnapshot.getString("date");
@@ -73,7 +73,7 @@ public class Repository {
             if (task.isSuccessful()) {
                 DocumentSnapshot documentSnapshot = task.getResult();
 
-                // Hvis der ikke er en MoodDate laves en tom ud fra datoen og gemmes i collectionen
+                // Hvis der ikke er en MoodDate laves en tom ud fra datoen og gemmes i kollektionen
                 if (!documentSnapshot.exists()) {
                     MoodDate moodDate = new MoodDate(date, "", 0);
                     ref.set(moodDate);
@@ -85,9 +85,10 @@ public class Repository {
     }
 
     public static void saveMoodDate(String date, String text, int mood) {
+        // Laver en reference til datoens dokument
         ref = db.collection(MOODDATES).document(date);
 
-        // Opdatere fields ud fra den nye data indtastet i DateActivity og tjekker om det lykkedes
+        // Opdatere dokumentets fields ud fra den nye data indtastet i DateActivity og tjekker om det lykkedes
         ref.update("text", text, "mood", mood, "bitmap", mood + ".jpeg").addOnCompleteListener(obj -> {
             System.out.println("MoodDate updateded");
         }).addOnFailureListener(exception -> {
@@ -96,6 +97,7 @@ public class Repository {
     }
 
     public static void deleteMoodDate() {
+        // Sletter MoodDaten i DB ud fra datoen/IDet
         db.collection(MOODDATES).document(currentMoodDate.getDate()).delete();
     }
 
@@ -107,11 +109,8 @@ public class Repository {
         // Sætter currentMoodDate til at være en tom MoodDate med datoen der er sendt med
         Repository.currentMoodDate = new MoodDate(date, "", 0);
 
-        System.out.println("Dato: " + date);
-
-        // Hvis der findes en MoodDate på listen med datoen og tekst sættes denne til at være currentMoodDate
+        // Hvis der findes en MoodDate på listen med datoen som indeholder tekst sættes denne til at være currentMoodDate
         for (MoodDate moodDate : moodDates) {
-            System.out.println(moodDate.getDate().equals(date) & moodDate.getText() != null);
             if (moodDate.getDate().equals(date) & moodDate.getText() != null) {
                 Repository.currentMoodDate = moodDate;
             }
@@ -121,7 +120,6 @@ public class Repository {
     public static void downloadBitmapForCurrentMoodDate(Updatable caller) {
         // Laver en String der matcher billedets navn og sætter StorageRef til at være denne
         String moodImage = currentMoodDate.getMood() + ".jpeg";
-        System.out.println("MoodImage fra 2022: " + moodImage);
         StorageReference ref = storage.getReference(moodImage);
 
         // Sætter max opløsningen

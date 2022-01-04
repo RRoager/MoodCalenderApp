@@ -33,17 +33,17 @@ public class MainActivity extends AppCompatActivity {
         statisticsBtn = findViewById(R.id.statisticsBtn);
 
         setMoodBtn.setOnClickListener(v -> {
-            // Finder dags dato og formattere den korrekt
+            // Finder dags dato og formatere den korrekt
             LocalDate localDate = now();
             String date = localDate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
 
             Repository.createMoodDate(date);
-            // Bruger datoen til sætte currentMoodDate
+            // Bruger datoen til at sætte currentMoodDate
             Repository.setCurrentMoodDate(date);
             Intent intent=new Intent(MainActivity.this, CreateMoodActivity.class);
 
             // Smider datoen med som extra i intentet
-            intent.putExtra("date", date);
+            //intent.putExtra("date", date);
 
             startActivity(intent);
         });
