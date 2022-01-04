@@ -36,7 +36,7 @@ public class Repository {
     private static MoodDate currentMoodDate;
 
     public static void init() {
-        // Initialiserer Firestore databasen
+        // Initialiserer Firestore databasen og Storage
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
         getMoodDates();
@@ -48,7 +48,7 @@ public class Repository {
             if(error == null) {
                 // Tømmer moodDates listen
                 moodDates.clear();
-                // Henter alle dokumenter på Firestore og hvis de har en dato tilføjes det til moodDates listen
+                // Henter alle dokumenter på Firestore og hvis de har en dato laves de til et MoodDate objekt og tilføjes til moodDates listen
                 for(DocumentSnapshot documentSnapshot : value.getDocuments()) {
                     if(documentSnapshot.get("date") != null) {
                         String date = documentSnapshot.getString("date");
