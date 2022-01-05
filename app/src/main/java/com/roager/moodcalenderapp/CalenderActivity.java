@@ -44,9 +44,6 @@ public class CalenderActivity extends AppCompatActivity {
                 Repository.setCurrentMoodDate(date);
                 Intent intent = new Intent(CalenderActivity.this, DateActivity.class);
 
-                // Gemmer den valgte dato til brug i DateActivity
-                //intent.putExtra("date", date);
-
                 startActivity(intent);
             }
         });

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import com.roager.moodcalenderapp.repository.Repository;
@@ -37,11 +38,8 @@ public class MainActivity extends AppCompatActivity {
             Repository.createMoodDate(date);
             // Bruger datoen til at sætte currentMoodDate
             Repository.setCurrentMoodDate(date);
+
             Intent intent=new Intent(MainActivity.this, CreateMoodActivity.class);
-
-            // Smider datoen med som extra i intentet
-            //intent.putExtra("date", date);
-
             startActivity(intent);
         });
 

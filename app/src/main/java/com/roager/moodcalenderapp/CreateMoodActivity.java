@@ -41,19 +41,9 @@ public class CreateMoodActivity extends AppCompatActivity {
         moodPicker.setWrapSelectorWheel(true);
         moodPicker.setDisplayedValues(moods);
 
-        //Intent intent = getIntent();
-
         editTextView.setText(Repository.getCurrentMoodDate().getText());
         moodPicker.setValue(Repository.getCurrentMoodDate().getMood());
         todaysDateView.setText(Repository.getCurrentMoodDate().getDate());
-
-        /*
-        // Tjekker at intentet indeholder noget og sætter derefter datofeltet
-        if (intent != null) {
-            String date = intent.getStringExtra("date");
-            todaysDateView.setText(date);
-        }
-        */
 
         // Laver onClickListener  på save knappen og gemmer dataen fra felterne
         saveBtn.setOnClickListener(v -> {
